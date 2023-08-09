@@ -1,6 +1,6 @@
 import { CustomApiError } from "../errors/custom-error.js"
 import jwt from 'jsonwebtoken'
-
+import { authenticationMiddleware } from "../middlewares/auth.js"
 const {sign, verify} = jwt
 
 
@@ -17,21 +17,7 @@ export const login = async (req, res) => {
 }
 
 export const dashboard = async (req, res) => {
-    console.log(req.headers.authorization)
-    const authHeader = req.headers.authorization
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        throw new CustomApiError("No valid token", 401)
-    }
-
-    try {
-        
-    const theToken = authHeader.split(' ')[1]
-    const decodedToken = verify(theToken, process.env.SECRETE)
-    console.log(decodedToken)
     const luckyNumber = Math.floor(Math.random()*10)
-    res.status(200).json({msg: 'Hello',
-    secrete: `here is your token, your lucky num is ${luckyNumber}`})
-    } catch (error) {
-        throw new CustomApiError('No authorisws', 401)
-    }
+        res.status(200).json({msg: 'Hello',
+        secrete: `here is your token, your lucky num is ${req.user, luckyNumber}`})
 }
