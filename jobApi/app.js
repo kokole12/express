@@ -5,6 +5,8 @@ import { authRouter } from './routes/auth.js';
 import { jobRouter } from './routes/jobs.js';
 import { connectDb } from './db/connection.js';
 import 'dotenv/config.js'
+import { notFound } from './middlewares/not-found.js';
+import { errorHandler } from './middlewares/error-handler.js';
 
 
 const  app = express()
@@ -21,6 +23,11 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs', jobRouter)
+
+
+//middlwares
+app.use(notFound)
+app.use(errorHandler)
 
 
 const start = async () => {
