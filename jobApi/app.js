@@ -9,6 +9,13 @@ import { notFound } from './middlewares/not-found.js';
 import { errorHandler } from './middlewares/error-handler.js';
 import { auth } from './middlewares/authentication.js';
 
+//extra packages
+import helmeet from 'helmet'
+import cors from 'cors'
+import xss from 'xss-clean'
+import rateLimit from 'express-rate-limit'
+
+
 
 const  app = express()
 
