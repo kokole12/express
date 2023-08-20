@@ -7,6 +7,7 @@ import { connectDb } from './db/connection.js';
 import 'dotenv/config.js'
 import { notFound } from './middlewares/not-found.js';
 import { errorHandler } from './middlewares/error-handler.js';
+import { auth } from './middlewares/authentication.js';
 
 
 const  app = express()
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/jobs', jobRouter)
+app.use('/api/v1/jobs', auth, jobRouter)
 
 
 //middlwares

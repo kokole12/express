@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcryptjs'
 
 const userSchema = mongoose.Schema({
     name: {
@@ -9,8 +10,6 @@ const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: [true, "please provide email"],
-        match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-        "email not valid"],
         unique: true
     },
     password: {
@@ -19,4 +18,8 @@ const userSchema = mongoose.Schema({
     }
 })
 
+// userSchema.pre('save', async () => {
+//     const salt = await bcrypt.genSalt()
+//     this.password = await bcrypt.hash(this.password, salt)
+// })
 export const User = mongoose.model('User', userSchema)
